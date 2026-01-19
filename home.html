@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard | SMK JAKARTA TIMUR 1</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-page">
+
+<nav class="navbar">
+  <img src="img/zackone.jpg" class="logo-small">
+  <h3>SMK JAKARTA TIMUR 1</h3>
+  <div class="menu">
+    <a href="#" onclick="logout()">LOGOUT</a>
+  </div>
+</nav>
+
+<section class="content-box">
+  <h1>Dashboard</h1>
+  <p id="infoUser"></p>
+
+  <div id="adminPanel" class="admin-panel">
+    <h3>Ganti Password Admin</h3>
+    <input type="password" id="oldPass" placeholder="Password Lama">
+    <input type="password" id="newPass" placeholder="Password Baru">
+    <button onclick="ubahPassword()">SIMPAN PASSWORD</button>
+  </div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

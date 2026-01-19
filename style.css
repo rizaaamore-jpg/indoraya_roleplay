@@ -1,0 +1,125 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+/* LOGIN */
+body{
+  background:url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3');
+  background-size:cover;
+  background-position:center;
+  height:100vh;
+}
+
+.login-box{
+  background:rgba(0,0,0,0.8);
+  width:320px;
+  padding:25px;
+  border-radius:12px;
+  text-align:center;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 25px #22c55e;
+}
+
+.login-box h2{
+  color:#22c55e;
+  margin-bottom:20px;
+}
+
+.login-box input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:none;
+  border-radius:6px;
+  background:#020617;
+  color:white;
+}
+
+.login-box button{
+  width:100%;
+  padding:12px;
+  background:#22c55e;
+  border:none;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  border-radius:6px;
+}
+
+/* DASHBOARD */
+.dashboard{
+  display:none;
+  height:100vh;
+  background:#0f172a;
+  color:white;
+}
+
+.sidebar{
+  width:220px;
+  background:#020617;
+  padding:20px;
+}
+
+.sidebar h3{
+  color:#22c55e;
+  margin-bottom:20px;
+}
+
+.sidebar button{
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  background:#111827;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+
+.sidebar button:hover{
+  background:#22c55e;
+  color:black;
+}
+
+.content{
+  flex:1;
+  padding:20px;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.card{
+  margin-top:20px;
+  background:#020617;
+  padding:20px;
+  width:200px;
+  border-radius:10px;
+  box-shadow:0 0 10px #22c55e;
+}
+
+table{
+  width:100%;
+  margin-top:15px;
+  border-collapse:collapse;
+}
+
+th,td{
+  border:1px solid #22c55e;
+  padding:8px;
+  text-align:center;
+}
+
+.struktur li{
+  margin:6px 0;
+}

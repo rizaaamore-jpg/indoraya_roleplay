@@ -1,19 +1,27 @@
 let siswa = [];
+let roleUser = "";
 
 function login(){
-  let nama = document.getElementById("nama").value;
-  let kelas = document.getElementById("kelas").value;
+  const nama = document.getElementById("nama").value;
+  const kelas = document.getElementById("kelas").value;
+  const role = document.getElementById("role").value;
 
-  if(nama==="" || kelas===""){
-    alert("Lengkapi nama dan kelas!");
+  if(!nama || !kelas || !role){
+    alert("Lengkapi semua data!");
     return;
   }
+
+  roleUser = role;
 
   document.getElementById("loginBox").style.display="none";
   document.getElementById("dashboard").style.display="flex";
 
   document.getElementById("infoLogin").innerText =
-    `Login sebagai ${nama} | Kelas ${kelas} | ${new Date().toLocaleString()}`;
+    `Login sebagai ${nama} | Kelas ${kelas} | Role: ${role.toUpperCase()}`;
+
+  if(role === "siswa"){
+    document.getElementById("menuSiswa").style.display="none";
+  }
 }
 
 function showSection(id){
@@ -23,8 +31,10 @@ function showSection(id){
 }
 
 function tambahSiswa(){
-  let nama = document.getElementById("namaSiswa").value;
-  if(nama==="") return;
+  if(roleUser !== "admin") return;
+
+  const nama = document.getElementById("namaSiswa").value;
+  if(nama === "") return;
 
   siswa.push(nama);
   document.getElementById("namaSiswa").value="";
@@ -36,6 +46,7 @@ function renderSiswa(){
   siswa.forEach((s,i)=>{
     html += `<tr><td>${i+1}</td><td>${s}</td></tr>`;
   });
+
   document.getElementById("listSiswa").innerHTML = html;
   document.getElementById("totalSiswa").innerText = siswa.length;
 }

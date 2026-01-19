@@ -1,85 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Website Kelas</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Login | SMK JAKARTA TIMUR 1</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="login-page">
 
-<!-- LOGIN -->
-<div class="login-box" id="loginBox">
-  <h2>LOGIN SEKOLAH</h2>
+<div class="login-box">
+  <img src="img/zackone.jpg" class="logo">
+  <h2>SMK JAKARTA TIMUR 1</h2>
+
   <input type="text" id="nama" placeholder="Nama Lengkap">
+  <input type="text" id="kelas" placeholder="Kelas">
 
-  <select id="role">
+  <select id="role" onchange="cekRole()">
     <option value="">Pilih Role</option>
     <option value="admin">Admin</option>
     <option value="siswa">Siswa</option>
   </select>
 
-  <input type="text" id="kelas" placeholder="Kelas">
+  <input type="password" id="password" placeholder="Password Admin" style="display:none">
   <button onclick="login()">MASUK</button>
-</div>
-
-<!-- DASHBOARD -->
-<div class="dashboard" id="dashboard">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <h3>MENU</h3>
-    <button onclick="showSection('home')">Dashboard</button>
-    <button onclick="showSection('struktur')">Struktur Kelas</button>
-    <button id="menuSiswa" onclick="showSection('siswa')">Data Siswa</button>
-    <button onclick="logout()" class="logout">Logout</button>
-  </aside>
-
-  <!-- CONTENT -->
-  <main class="content">
-
-    <!-- HOME -->
-    <section id="home" class="section active">
-      <h1>Dashboard</h1>
-      <p id="infoLogin"></p>
-
-      <div class="card">
-        <h3>Total Siswa</h3>
-        <h1 id="totalSiswa">0</h1>
-      </div>
-    </section>
-
-    <!-- STRUKTUR KELAS -->
-    <section id="struktur" class="section">
-      <h1>Struktur Organisasi Kelas</h1>
-
-      <div class="struktur-grid">
-        <div class="struktur-card">Wali Kelas</div>
-        <div class="struktur-card">Ketua Kelas</div>
-        <div class="struktur-card">Wakil Ketua</div>
-        <div class="struktur-card">Sekretaris 1</div>
-        <div class="struktur-card">Sekretaris 2</div>
-        <div class="struktur-card">Keamanan</div>
-      </div>
-    </section>
-
-    <!-- DATA SISWA (ADMIN ONLY) -->
-    <section id="siswa" class="section">
-      <h1>Data Siswa</h1>
-      <input type="text" id="namaSiswa" placeholder="Nama Siswa">
-      <button onclick="tambahSiswa()">Tambah</button>
-
-      <table>
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama</th>
-          </tr>
-        </thead>
-        <tbody id="listSiswa"></tbody>
-      </table>
-    </section>
-
-  </main>
 </div>
 
 <script src="script.js"></script>

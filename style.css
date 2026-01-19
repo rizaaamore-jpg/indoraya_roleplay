@@ -7,16 +7,14 @@
 
 /* LOGIN */
 body{
-  background:url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3');
-  background-size:cover;
-  background-position:center;
+  background:linear-gradient(135deg,#020024,#090979,#00d4ff);
   height:100vh;
 }
 
 .login-box{
-  background:rgba(0,0,0,0.8);
   width:320px;
   padding:25px;
+  background:rgba(0,0,0,0.85);
   border-radius:12px;
   text-align:center;
   position:absolute;
@@ -31,7 +29,8 @@ body{
   margin-bottom:20px;
 }
 
-.login-box input{
+.login-box input,
+.login-box select{
   width:100%;
   padding:12px;
   margin:8px 0;
@@ -46,7 +45,6 @@ body{
   padding:12px;
   background:#22c55e;
   border:none;
-  font-size:16px;
   font-weight:bold;
   cursor:pointer;
   border-radius:6px;
@@ -75,15 +73,20 @@ body{
   width:100%;
   padding:10px;
   margin:6px 0;
-  background:#111827;
-  color:white;
   border:none;
   cursor:pointer;
+  background:#111827;
+  color:white;
+  border-radius:6px;
 }
 
 .sidebar button:hover{
   background:#22c55e;
   color:black;
+}
+
+.logout{
+  background:#dc2626;
 }
 
 .content{
@@ -100,14 +103,32 @@ body{
 }
 
 .card{
-  margin-top:20px;
   background:#020617;
-  padding:20px;
   width:200px;
+  padding:20px;
+  margin-top:15px;
   border-radius:10px;
   box-shadow:0 0 10px #22c55e;
 }
 
+/* STRUKTUR */
+.struktur-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:15px;
+  margin-top:20px;
+}
+
+.struktur-card{
+  background:#020617;
+  padding:20px;
+  text-align:center;
+  border-radius:10px;
+  box-shadow:0 0 8px #22c55e;
+  font-weight:bold;
+}
+
+/* TABLE */
 table{
   width:100%;
   margin-top:15px;
@@ -118,8 +139,4 @@ th,td{
   border:1px solid #22c55e;
   padding:8px;
   text-align:center;
-}
-
-.struktur li{
-  margin:6px 0;
 }

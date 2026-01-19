@@ -1,56 +1,81 @@
-let siswa = [];
-let roleUser = "";
+// SET PASSWORD DEFAULT JIKA BELUM ADA
+if(!localStorage.getItem("adminPassword")){
+  localStorage.setItem("adminPassword", "rizaa123");
+}
+
+// LOGIN
+function cekRole(){
+  const role = document.getElementById("role").value;
+  document.getElementById("password").style.display =
+    role === "admin" ? "block" : "none";
+}
 
 function login(){
   const nama = document.getElementById("nama").value;
   const kelas = document.getElementById("kelas").value;
   const role = document.getElementById("role").value;
+  const pass = document.getElementById("password").value;
 
   if(!nama || !kelas || !role){
-    alert("Lengkapi semua data!");
+    alert("Lengkapi data!");
     return;
   }
 
-  roleUser = role;
+  if(role === "admin"){
+    const adminPass = localStorage.getItem("adminPassword");
+    if(pass !== adminPass){
+      alert("Password admin salah!");
+      return;
+    }
+  }
 
-  document.getElementById("loginBox").style.display="none";
-  document.getElementById("dashboard").style.display="flex";
+  localStorage.setItem("user", JSON.stringify({nama,kelas,role}));
+  location.href = "home.html";
+}
 
-  document.getElementById("infoLogin").innerText =
-    `Login sebagai ${nama} | Kelas ${kelas} | Role: ${role.toUpperCase()}`;
+// DASHBOARD
+function cekLogin(){
+  const user = JSON.parse(localStorage.getItem("user"));
+  if(!user){
+    location.href = "index.html";
+    return;
+  }
 
-  if(role === "siswa"){
-    document.getElementById("menuSiswa").style.display="none";
+  document.getElementById("infoUser").innerText =
+    `Login sebagai ${user.nama} | ${user.kelas} | ${user.role.toUpperCase()}`;
+
+  if(user.role !== "admin"){
+    document.getElementById("adminPanel").style.display = "none";
   }
 }
 
-function showSection(id){
-  document.querySelectorAll(".section")
-    .forEach(sec=>sec.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
+function ubahPassword(){
+  const oldPass = document.getElementById("oldPass").value;
+  const newPass = document.getElementById("newPass").value;
+  const currentPass = localStorage.getItem("adminPassword");
+
+  if(oldPass !== currentPass){
+    alert("Password lama salah!");
+    return;
+  }
+
+  if(newPass.length < 5){
+    alert("Password minimal 5 karakter!");
+    return;
+  }
+
+  localStorage.setItem("adminPassword", newPass);
+  alert("Password admin berhasil diubah!");
+  document.getElementById("oldPass").value="";
+  document.getElementById("newPass").value="";
 }
 
-function tambahSiswa(){
-  if(roleUser !== "admin") return;
-
-  const nama = document.getElementById("namaSiswa").value;
-  if(nama === "") return;
-
-  siswa.push(nama);
-  document.getElementById("namaSiswa").value="";
-  renderSiswa();
-}
-
-function renderSiswa(){
-  let html="";
-  siswa.forEach((s,i)=>{
-    html += `<tr><td>${i+1}</td><td>${s}</td></tr>`;
-  });
-
-  document.getElementById("listSiswa").innerHTML = html;
-  document.getElementById("totalSiswa").innerText = siswa.length;
-}
-
+// LOGOUT
 function logout(){
-  location.reload();
+  localStorage.removeItem("user");
+  location.href="index.html";
+}
+
+if(location.pathname.includes("home")){
+  cekLogin();
 }

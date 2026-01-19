@@ -6,43 +6,41 @@
 }
 
 /* LOGIN */
-body{
-  background:linear-gradient(135deg,#020024,#090979,#00d4ff);
+.login-page{
   height:100vh;
+  background:linear-gradient(135deg,#020024,#090979,#00d4ff);
 }
 
 .login-box{
-  width:320px;
-  padding:25px;
+  width:330px;
   background:rgba(0,0,0,0.85);
+  padding:25px;
   border-radius:12px;
   text-align:center;
+  color:white;
   position:absolute;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  box-shadow:0 0 25px #22c55e;
 }
 
-.login-box h2{
-  color:#22c55e;
-  margin-bottom:20px;
+.logo{
+  width:80px;
+  margin-bottom:10px;
 }
 
 .login-box input,
 .login-box select{
   width:100%;
-  padding:12px;
+  padding:10px;
   margin:8px 0;
   border:none;
   border-radius:6px;
-  background:#020617;
-  color:white;
 }
 
 .login-box button{
   width:100%;
-  padding:12px;
+  padding:10px;
   background:#22c55e;
   border:none;
   font-weight:bold;
@@ -51,92 +49,57 @@ body{
 }
 
 /* DASHBOARD */
-.dashboard{
-  display:none;
-  height:100vh;
-  background:#0f172a;
+.dashboard-page{
+  min-height:100vh;
+  background:url('img/sekolah.jpg') no-repeat center/cover;
+}
+
+.navbar{
+  background:rgba(0,0,0,0.7);
   color:white;
+  padding:10px 20px;
+  display:flex;
+  align-items:center;
 }
 
-.sidebar{
-  width:220px;
-  background:#020617;
-  padding:20px;
+.logo-small{
+  width:40px;
+  margin-right:10px;
 }
 
-.sidebar h3{
-  color:#22c55e;
-  margin-bottom:20px;
+.menu{
+  margin-left:auto;
 }
 
-.sidebar button{
-  width:100%;
-  padding:10px;
-  margin:6px 0;
-  border:none;
-  cursor:pointer;
-  background:#111827;
+.menu a{
   color:white;
-  border-radius:6px;
-}
-
-.sidebar button:hover{
-  background:#22c55e;
-  color:black;
-}
-
-.logout{
-  background:#dc2626;
-}
-
-.content{
-  flex:1;
-  padding:20px;
-}
-
-.section{
-  display:none;
-}
-
-.section.active{
-  display:block;
-}
-
-.card{
-  background:#020617;
-  width:200px;
-  padding:20px;
-  margin-top:15px;
-  border-radius:10px;
-  box-shadow:0 0 10px #22c55e;
-}
-
-/* STRUKTUR */
-.struktur-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:15px;
-  margin-top:20px;
-}
-
-.struktur-card{
-  background:#020617;
-  padding:20px;
-  text-align:center;
-  border-radius:10px;
-  box-shadow:0 0 8px #22c55e;
+  text-decoration:none;
   font-weight:bold;
 }
 
-/* TABLE */
-table{
-  width:100%;
-  margin-top:15px;
-  border-collapse:collapse;
+.content-box{
+  background:rgba(0,0,0,0.75);
+  color:white;
+  margin:40px;
+  padding:30px;
+  border-radius:12px;
 }
 
-th,td{
-  border:1px solid #22c55e;
-  padding:8px;
-  text-align:center;
+.admin-panel{
+  margin-top:20px;
+}
+
+.admin-panel input{
+  width:100%;
+  padding:10px;
+  margin:5px 0;
+}
+
+.admin-panel button{
+  background:#22c55e;
+  border:none;
+  padding:10px;
+  width:100%;
+  font-weight:bold;
+  cursor:pointer;
 }

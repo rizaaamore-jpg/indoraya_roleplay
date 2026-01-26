@@ -1,275 +1,83 @@
 <!DOCTYPE html><html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Marketplace Simple</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f4; }
-    header { background: #2563eb; color: white; padding: 15px; text-align: center; }
-    .container { padding: 20px; }
-    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-    .card { background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-    .card img { width: 100%; border-radius: 6px; }
-    .card h3 { margin: 10px 0 5px; }
-    .card p { margin: 5px 0; }
-    .card button { background: #22c55e; border: none; color: white; padding: 8px; width: 100%; border-radius: 5px; cursor: pointer; }
-    .card button:hover { background: #16a34a; }
-    .cart { margin-top: 30px; background: white; padding: 15px; border-radius: 8px; }/* ADMIN DASHBOARD */
-.admin-wrapper { display: flex; min-height: 100vh; }
-.sidebar { width: 220px; background: #0f172a; color: white; padding: 20px; }
-.sidebar h2 { font-size: 18px; margin-bottom: 20px; }
-.sidebar button { width: 100%; margin-bottom: 10px; padding: 10px; background: #1e293b; color: white; border: none; border-radius: 6px; cursor: pointer; text-align:left; }
-.sidebar button:hover { background: #334155; }
-.admin-content { flex: 1; padding: 20px; background: #f8fafc; }
-.admin-card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Marketplace</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial;background:#f4f4f4}
+header{background:#2563eb;color:#fff;padding:15px;display:flex;justify-content:space-between;align-items:center}
+header button{background:#1e40af;color:#fff;border:none;padding:8px 14px;border-radius:6px}
+.container{padding:20px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.card{background:#fff;padding:15px;border-radius:10px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
+.card button{margin-top:10px;width:100%}
+.admin-wrapper{display:flex;min-height:100vh}
+.sidebar{width:230px;background:#0f172a;color:#fff;padding:15px}
+.sidebar button{width:100%;margin-bottom:10px;background:#1e293b;color:#fff;border:none;padding:10px;border-radius:6px}
+.admin-content{flex:1;padding:20px;background:#f8fafc}
+.admin-card{background:#fff;padding:15px;border-radius:10px;margin-bottom:15px}
+input{padding:8px;width:100%;margin-bottom:10px}
+@media(max-width:768px){.admin-wrapper{flex-direction:column}.sidebar{width:100%;display:flex;gap:10px;overflow-x:auto}}
+</style>
 </head>
-<body><header>
-  <h1>Marketplace Simple</h1>
-  <p>Jual beli mudah & cepat</p>
-  <button id="adminBtn" style="margin-top:10px;padding:8px 12px;border:none;border-radius:5px;cursor:pointer;">Login Admin</button>
-</header><div class="container">  <!-- LOGIN ADMIN -->  <div id="adminLogin" style="display:none;background:white;padding:15px;border-radius:8px;margin-bottom:20px;">
-    <h2>Login Admin</h2>
-    <input type="text" id="adminUser" placeholder="Username" style="width:100%;padding:8px;margin-bottom:10px;" />
-    <input type="password" id="adminPass" placeholder="Password" style="width:100%;padding:8px;margin-bottom:10px;" />
-    <button id="loginBtn" style="background:#2563eb;color:white;border:none;padding:10px;width:100%;border-radius:5px;">Login</button>
-    <p id="loginMsg" style="color:red;"></p>
-  </div>  <!-- PANEL ADMIN --><div id="adminPanel" style="display:none">
+<body>
+<header>
+<h3>Marketplace</h3>
+<button id="adminBtn">Login Admin</button>
+</header><div class="container">
+<!-- LOGIN ADMIN -->
+<div id="adminLogin" style="display:none">
+<h3>Login Admin</h3>
+<input id="adminUser" placeholder="Username">
+<input id="adminPass" type="password" placeholder="Password">
+<button id="loginBtn">Login</button>
+<p id="loginMsg"></p>
+</div><!-- ADMIN PANEL --><div id="adminPanel" style="display:none">
 <div class="admin-wrapper">
-  <div class="sidebar">
-    <h2>Admin Panel</h2>
-    <button onclick="showSection('dashboard')">📊 Dashboard</button>
-    <button onclick="showSection('add')">➕ Tambah Produk</button>
-            <button onclick="showSection('list')">📦 Manajemen Produk</button>
-    <button onclick="showSection('orders')">🧾 Manajemen Pesanan</button>>📦 Daftar Produk</button>
-    <button onclick="logoutAdmin()">🚪 Logout</button>
-  </div>
-
-  <div class="admin-content">
-    <div id="section-dashboard" class="admin-card">
-      <h2>Dashboard</h2>
-      <p>Total Produk: <strong id="totalProduk">0</strong></p>
-    </div>
-
-    <div id="section-add" class="admin-card" style="display:none">
-      <h2>Tambah Produk</h2>
-      <input type="text" id="prodName" placeholder="Nama Produk" style="width:100%;padding:8px;margin-bottom:10px;" />
-      <input type="number" id="prodPrice" placeholder="Harga" style="width:100%;padding:8px;margin-bottom:10px;" />
-      <input type="text" id="prodImg" placeholder="URL Gambar" style="width:100%;padding:8px;margin-bottom:10px;" />
-      <button id="addProductBtn" style="background:#22c55e;color:white;border:none;padding:10px;width:100%;border-radius:5px;">Tambah Produk</button>
-    </div>
-
-            <div id="section-list" class="admin-card" style="display:none">
-      <h2>Manajemen Produk</h2>
-      <ul id="adminProductList"></ul>
-    </div>
-
-    <div id="section-orders" class="admin-card" style="display:none">
-      <h2>Manajemen Pesanan</h2>
-      <ul id="orderList"></ul>
-    </div>
-  </div>
+<div class="sidebar">
+<button onclick="showSection('dashboard')">📊 Dashboard</button>
+<button onclick="showSection('products')">📦 Produk</button>
+<button onclick="showSection('orders')">🧾 Pesanan</button>
+<button onclick="logoutAdmin()">🚪 Logout</button>
 </div>
-
-  </div>
-  <h2>Produk</h2>
-  <div class="products" id="products"></div><div class="cart">
-<h2>Keranjang</h2>
-<ul id="cartList"></ul>
-<p><strong>Total: Rp <span id="total">0</span></strong></p>
-<button id="checkoutBtn" style="margin-top:10px;background:#2563eb;color:white;border:none;padding:10px;width:100%;border-radius:5px;cursor:pointer;">Checkout</button>
-
-  </div>
-</div><footer>
-  <p>© 2026 Marketplace Simple</p>
-</footer><script>
-  let products = JSON.parse(localStorage.getItem('products')) || [
-    { name: 'Kaos Polos', price: 50000, img: 'https://via.placeholder.com/300' },
-    { name: 'Sepatu Sneakers', price: 250000, img: 'https://via.placeholder.com/300' }
-  ];
-
-  const productsDiv = document.getElementById('products');
-  const cartList = document.getElementById('cartList');
-  const totalSpan = document.getElementById('total');
-
-  let total = 0;
-let cartItems = [];
-
-  function renderProducts() {
-  productsDiv.innerHTML = '';
-  const adminList = document.getElementById('adminProductList');
-  adminList.innerHTML = '';
-() {
-  productsDiv.innerHTML = '';
-  const adminList = document.getElementById('adminProductList');
-  adminList.innerHTML = '';
-() {
-  productsDiv.innerHTML = '';
-    products.forEach((p, index) => {(p => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <img src="${p.img}" />
-      <h3>${p.name}</h3>
-      <p>Rp ${p.price.toLocaleString()}</p>
-      <button>Beli</button>
-    `;
-    card.querySelector('button').onclick = () => {
-      const li = document.createElement('li');
-          li.textContent = `${p.name} - Rp ${p.price.toLocaleString()}`;
-    const edit = document.createElement('button');
-    edit.textContent = 'Edit';
-    edit.style.marginLeft = '10px';
-    edit.onclick = () => {
-      const newName = prompt('Nama Produk', p.name);
-      const newPrice = prompt('Harga Produk', p.price);
-      if (newName && newPrice) {
-        products[index].name = newName;
-        products[index].price = Number(newPrice);
-        localStorage.setItem('products', JSON.stringify(products));
-        renderProducts();
-        updateDashboard();
-      }
-    }; `${p.name} - Rp ${p.price.toLocaleString()}`;
-      cartList.appendChild(li);
-      cartItems.push(p);
-      total += p.price;
-      totalSpan.textContent = total.toLocaleString();
-    };
-                productsDiv.appendChild(card);
-
-    const li = document.createElement('li');
-    li.textContent = `${p.name} - Rp ${p.price.toLocaleString()}`;
-    const del = document.createElement('button');
-    del.textContent = 'Hapus';
-    del.style.marginLeft = '10px';
-    del.onclick = () => {
-      products.splice(index, 1);
-      localStorage.setItem('products', JSON.stringify(products));
-      renderProducts();
-      updateDashboard();
-    };
-        li.appendChild(edit);
-    li.appendChild(del);
-    adminList.appendChild(li);
-
-    // admin list
-    const li = document.createElement('li');
-    li.textContent = `${p.name} - Rp ${p.price.toLocaleString()}`;
-    const del = document.createElement('button');
-    del.textContent = 'Hapus';
-    del.style.marginLeft = '10px';
-    del.onclick = () => {
-      products.splice(index, 1);
-      localStorage.setItem('products', JSON.stringify(products));
-      renderProducts();
-    };
-    li.appendChild(del);
-    adminList.appendChild(li);
-  });
-}
-
-renderProducts();
-  });
-  // LOGIN ADMIN
-const adminBtn = document.getElementById('adminBtn');
-const adminLogin = document.getElementById('adminLogin');
-const adminPanel = document.getElementById('adminPanel');
-
-adminBtn.onclick = () => {
-  adminLogin.style.display = adminLogin.style.display === 'none' ? 'block' : 'none';
-};
-
-document.getElementById('loginBtn').onclick = () => {
-  const u = document.getElementById('adminUser').value;
-  const p = document.getElementById('adminPass').value;
-  if (u === 'admin' && p === '12345') {
-    adminLogin.style.display = 'none';
-    adminPanel.style.display = 'block';
-    showSection('dashboard');
-    updateDashboard();
-  } else {
-    document.getElementById('loginMsg').textContent = 'Username atau password salah';
-  }
-};
-
-// TAMBAH PRODUK
-document.getElementById('addProductBtn').onclick = () => {
-  const name = document.getElementById('prodName').value;
-  const price = Number(document.getElementById('prodPrice').value);
-  const img = document.getElementById('prodImg').value || 'https://via.placeholder.com/300';
-
-  if (!name || !price) {
-    alert('Nama dan harga wajib diisi');
-    return;
-  }
-
-    products.push({ name, price, img });
-  localStorage.setItem('products', JSON.stringify(products));({ name, price, img });
-  renderProducts();
-
-  document.getElementById('prodName').value = '';
-  document.getElementById('prodPrice').value = '';
-  document.getElementById('prodImg').value = '';
-};
-
-// CHECKOUT
-document.getElementById('checkoutBtn').onclick = () => {
-    if (cartItems.length === 0) {
-      alert('Keranjang masih kosong!');
-      return;
-    }
-
-    let pesan = 'Halo, saya ingin checkout:%0A';
-    cartItems.forEach((item, i) => {
-      pesan += `${i+1}. ${item.name} - Rp ${item.price.toLocaleString()}%0A`;
-    });
-    pesan += `%0ATotal: Rp ${total.toLocaleString()}`;
-
-    const nomorWA = '6281932999602'; // ganti dengan nomor WhatsApp penjual
-    // SIMPAN PESANAN
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    orders.push({ items: cartItems, total: total, time: new Date().toLocaleString() });
-    localStorage.setItem('orders', JSON.stringify(orders));
-
-    window.open(`https://wa.me/${nomorWA}?text=${pesan}`, '_blank');
-  };
-function showSection(name) {
-  document.getElementById('section-dashboard').style.display = 'none';
-  document.getElementById('section-add').style.display = 'none';
-  document.getElementById('section-list').style.display = 'none';
-  document.getElementById('section-orders').style.display = 'none';
-
-  document.getElementById('section-' + name).style.display = 'block';
-  if (name === 'orders') loadOrders();
-}
-
-function showSection(name) {
-  document.getElementById('section-dashboard').style.display = 'none';
-  document.getElementById('section-add').style.display = 'none';
-  document.getElementById('section-list').style.display = 'none';
-  document.getElementById('section-' + name).style.display = 'block';
-}
-
-function updateDashboard() {
-  document.getElementById('totalProduk').textContent = products.length;
-}
-
-function loadOrders() {
-  const orderList = document.getElementById('orderList');
-  orderList.innerHTML = '';
-  const orders = JSON.parse(localStorage.getItem('orders')) || [];
-
-  orders.forEach((o, i) => {
-    const li = document.createElement('li');
-    li.innerHTML = `<strong>Pesanan #${i+1}</strong><br>Total: Rp ${o.total.toLocaleString()}<br>Waktu: ${o.time}`;
-    orderList.appendChild(li);
-  });
-}
-
-function logoutAdmin() {
-  adminPanel.style.display = 'none';
-}
+<div class="admin-content">
+<div id="section-dashboard" class="admin-card">
+<h3>Total Produk: <span id="totalProduk">0</span></h3>
+<h3>Total Pesanan: <span id="totalOrder">0</span></h3>
+</div>
+<div id="section-products" class="admin-card" style="display:none">
+<h3>Tambah Produk</h3>
+<input id="prodName" placeholder="Nama Produk">
+<input id="prodPrice" type="number" placeholder="Harga">
+<button onclick="addProduct()">Tambah Produk</button>
+<ul id="adminProductList"></ul>
+</div>
+<div id="section-orders" class="admin-card" style="display:none">
+<h3>Daftar Pesanan</h3>
+<ul id="orderList"></ul>
+</div>
+</div>
+</div>
+</div><!-- PRODUK USER --><h3>Produk</h3>
+<div class="products" id="products"></div></div><script>
+let products=JSON.parse(localStorage.getItem('products'))||[];
+let orders=JSON.parse(localStorage.getItem('orders'))||[];
+const adminBtn=document.getElementById('adminBtn');
+adminBtn.onclick=()=>adminLogin.style.display='block';
+loginBtn.onclick=()=>{
+if(adminUser.value==='admin'&&adminPass.value==='12345'){
+adminLogin.style.display='none';adminPanel.style.display='block';renderAll();
+}else loginMsg.innerText='Login salah';}
+function logoutAdmin(){adminPanel.style.display='none'}
+function showSection(s){['dashboard','products','orders'].forEach(i=>document.getElementById('section-'+i).style.display='none');document.getElementById('section-'+s).style.display='block';}
+function renderAll(){renderProducts();renderAdminProducts();updateDashboard();renderOrders();}
+function renderProducts(){productsDiv.innerHTML='';products.forEach((p,i)=>{productsDiv.innerHTML+=`<div class="card"><b>${p.name}</b><br>Rp ${p.price}<button onclick="checkout(${i})">Checkout</button></div>`})}
+function renderAdminProducts(){adminProductList.innerHTML='';products.forEach((p,i)=>adminProductList.innerHTML+=`<li>${p.name} - ${p.price}</li>`)}
+function addProduct(){products.push({name:prodName.value,price:prodPrice.value});localStorage.setItem('products',JSON.stringify(products));renderAll();}
+function checkout(i){orders.push({product:products[i].name,price:products[i].price});localStorage.setItem('orders',JSON.stringify(orders));alert('Pesanan dibuat');renderAll();}
+function renderOrders(){orderList.innerHTML='';orders.forEach(o=>orderList.innerHTML+=`<li>${o.product} - Rp ${o.price}</li>`)}
+function updateDashboard(){totalProduk.innerText=products.length;totalOrder.innerText=orders.length}
+renderAll();
 </script></body>
 </html>
